@@ -1,0 +1,335 @@
+/* Centrar todo el contenido en la pantalla */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #011b3e; /* Fondo azul oscuro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal con bordes redondeados y fondo oscuro */
+.container {
+    width: 80%;
+    max-width: 600px;
+    background-color: #01294f;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Contenedor de los slots en formato grid (3x3) */
+.slot-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+    grid-template-rows: repeat(3, 1fr);    /* 3 filas de igual tamaño */
+    gap: 15px;                             /* Espacio entre los slots */
+    margin-bottom: 20px;                   /* Espacio entre los slots y el botón */
+}
+
+/* Estilo de los slots */
+.slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: #004f89;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+
+    /* Asegura que el texto no se salga del slot */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Animación de giro de los slots */
+.slot-animation {
+    transform: rotate(360deg);
+}
+
+/* Estilo del mensaje de ganador */
+.winner-alert {
+    display: none;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffcc00;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.winner-alert.active {
+    display: block;
+}
+
+/* Botón de inicio */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ffcc00;
+    color: #003b73;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bolder;
+}
+
+button:hover {
+    background-color: #e6b800;
+}
+
+ /* Animations and effects */
+ .slot-animation {
+    animation: spin 0.5s ease-out forwards; /* Spin effect */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(180deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+/* Contenedor para el historial de premios */
+.container2 {
+    width: 30%;
+    background-color: #003b73;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    margin-left: 20px   ;
+    text-align: left; /* Alinear el texto a la izquierda */
+    max-height: 300px; /* Limitar la altura para evitar que crezca demasiado */
+    overflow-y: auto; /* Permitir desplazamiento si hay muchos premios */
+}
+
+/* Título del historial de premios */
+.container2 h2 {
+    font-size: 24px;
+    color: #ffcc00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilo de cada premio en el historial */
+.history-item {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #004f89;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Agregar un poco de espacio entre los elementos */
+.history-item + .history-item {
+    margin-top: 15px;
+}
+
+/* Animación de entrada para cada nuevo premio */
+.history-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Contenedor de las monedas */
+#coin-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interactuar con otros elementos mientras ocurre la animación */
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Estilo base de las monedas */
+.coin {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('coin.png'); /* Ruta de tu imagen de moneda */
+    background-size: cover;
+    animation: fall linear;
+    opacity: 0.9;
+}
+
+/* Animación de caída */
+@keyframes fall {
+    from {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+/* Modal más grande */
+.modal-content {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    animation: epic-fade-in 0.7s ease forwards; /* Animación de entrada */
+    position: relative;
+    max-width: 80%; /* Limitar el ancho */
+    width: 600px; /* Tamaño fijo más grande */
+    transform: scale(0.9); /* Inicialmente más pequeño */
+    border: 5px solid #ffd700; /* Borde dorado */
+  }
+  
+  /* Texto grande y épico */
+  .modal-content h2 {
+    font-size: 3rem; /* Título grande */
+    font-weight: bold;
+    color: #ffd700; /* Color dorado */
+    text-shadow: 0 0 20px #ffcc00, 0 0 40px #ffcc00, 0 0 60px #ff9900; /* Brillo */
+    margin-bottom: 20px;
+  }
+  
+  .modal-content p {
+    font-size: 1.5rem; /* Texto más grande */
+    color: #444;
+  }
+  
+  /* Animación de entrada */
+  @keyframes epic-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.7) rotate(-10deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+  
+  /* Animación de salida */
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.7) rotate(10deg);
+    }
+  }
+  
+  /* Fondo de pantalla animado */
+  .modal {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0.9) 100%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Agregar efecto de partículas (lluvia de monedas) */
+  @keyframes coin-fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(700px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Monedas */
+  .coin {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('coin.png'); /* Asegúrate de tener la imagen de una moneda */
+    background-size: cover;
+    animation: coin-fall 2s linear infinite;
+    pointer-events: none;
+  }
+  
+  .modal {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0.9) 100%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  } 
+  /* Animación de entrada */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Animación de salida */
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+/* Definir las animaciones */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
